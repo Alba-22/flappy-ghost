@@ -48,6 +48,23 @@ collision_layer = 2
 position = Vector2(576.5, 724)
 shape = SubResource("RectangleShape2D_sqa0i")
 
+[node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 540.0
+offset_top = 1.0
+offset_right = 616.0
+offset_bottom = 28.9167
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Score: 0"
+
 [connection signal="on_player_collided" from="PipeManager" to="." method="_on_pipe_manager_on_player_collided"]
 [connection signal="on_player_scored" from="PipeManager" to="." method="_on_pipe_manager_on_player_scored"]
 [connection signal="on_pipe_out_of_screen" from="PipeManager/PipeSet1" to="PipeManager" method="_on_pipe_set_1_on_pipe_out_of_screen"]

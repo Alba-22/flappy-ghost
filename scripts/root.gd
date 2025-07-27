@@ -50,4 +50,4 @@ func score_point() -> void:
 		pipe_manager.update_game_speed(11);
 	if (player_score == 60):
 		pipe_manager.update_game_speed(13);
-	print(player_score);
+	$%ScoreLabel.text = "Score: " + str(player_score);
