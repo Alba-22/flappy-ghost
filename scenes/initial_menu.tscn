@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvrk86dq1fq1t"]
+
+[ext_resource type="Script" uid="uid://btx41a5us57ba" path="res://scripts/initial_menu.gd" id="1_8ku6a"]
+[ext_resource type="StyleBox" uid="uid://cf8051cyot4up" path="res://styles/button_normal.tres" id="1_148c3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_148c3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ku6a"]
+bg_color = Color(0.228, 0.2793, 0.57, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_size = 2
+shadow_offset = Vector2(2, 4)
+anti_aliasing = false
+
+[node name="Initial Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ku6a")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 70
+text = "Flappy
+Ghost"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+theme_override_styles/separator = SubResource("StyleBoxFlat_148c3")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.838897, 0.838897, 0.838897, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/align_to_largest_stylebox = 95
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ku6a")
+theme_override_styles/normal = ExtResource("1_148c3")
+text = "Play"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_button_pressed"]

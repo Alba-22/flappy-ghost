@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://cobdwyv0td2kl"]
+
+[ext_resource type="Texture2D" uid="uid://b3wsr4o732mql" path="res://sprites/background.png" id="1_j5px3"]
+[ext_resource type="Script" uid="uid://dw4t7gml03pn2" path="res://scripts/root.gd" id="1_lrqlo"]
+[ext_resource type="PackedScene" uid="uid://ck8yhto06tpnn" path="res://scenes/player.tscn" id="2_twpsu"]
+[ext_resource type="Script" uid="uid://20uyo5uxcot4" path="res://scripts/pipe_manager.gd" id="3_jh1ax"]
+[ext_resource type="PackedScene" uid="uid://fn0rqk317i26" path="res://scenes/pipe_set.tscn" id="4_sqa0i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqlo"]
+size = Vector2(1152, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqa0i"]
+size = Vector2(1153, 132)
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_lrqlo")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+texture = ExtResource("1_j5px3")
+
+[node name="PipeManager" type="Node2D" parent="."]
+script = ExtResource("3_jh1ax")
+
+[node name="PipeSet1" parent="PipeManager" instance=ExtResource("4_sqa0i")]
+position = Vector2(1432, 273)
+
+[node name="PipeSet2" parent="PipeManager" instance=ExtResource("4_sqa0i")]
+position = Vector2(1996, 271)
+
+[node name="PipeSet3" parent="PipeManager" instance=ExtResource("4_sqa0i")]
+position = Vector2(2618, 258)
+
+[node name="Player" parent="." instance=ExtResource("2_twpsu")]
+position = Vector2(576, 324)
+
+[node name="TopCollider" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollider"]
+position = Vector2(576, -61)
+shape = SubResource("RectangleShape2D_lrqlo")
+
+[node name="BottomCollider" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollider"]
+position = Vector2(576.5, 724)
+shape = SubResource("RectangleShape2D_sqa0i")
+
+[connection signal="on_player_collided" from="PipeManager" to="." method="_on_pipe_manager_on_player_collided"]
+[connection signal="on_player_scored" from="PipeManager" to="." method="_on_pipe_manager_on_player_scored"]
+[connection signal="on_pipe_out_of_screen" from="PipeManager/PipeSet1" to="PipeManager" method="_on_pipe_set_1_on_pipe_out_of_screen"]
+[connection signal="on_player_collided_with_pipe" from="PipeManager/PipeSet1" to="PipeManager" method="_on_pipe_set_1_on_player_collided_with_pipe"]
+[connection signal="on_player_scored" from="PipeManager/PipeSet1" to="PipeManager" method="_on_pipe_set_1_on_player_scored"]
+[connection signal="on_pipe_out_of_screen" from="PipeManager/PipeSet2" to="PipeManager" method="_on_pipe_set_2_on_pipe_out_of_screen"]
+[connection signal="on_player_collided_with_pipe" from="PipeManager/PipeSet2" to="PipeManager" method="_on_pipe_set_2_on_player_collided_with_pipe"]
+[connection signal="on_player_scored" from="PipeManager/PipeSet2" to="PipeManager" method="_on_pipe_set_2_on_player_scored"]
+[connection signal="on_pipe_out_of_screen" from="PipeManager/PipeSet3" to="PipeManager" method="_on_pipe_set_3_on_pipe_out_of_screen"]
+[connection signal="on_player_collided_with_pipe" from="PipeManager/PipeSet3" to="PipeManager" method="_on_pipe_set_3_on_player_collided_with_pipe"]
+[connection signal="on_player_scored" from="PipeManager/PipeSet3" to="PipeManager" method="_on_pipe_set_3_on_player_scored"]
+[connection signal="body_entered" from="TopCollider" to="." method="_on_top_collider_body_entered"]
+[connection signal="body_entered" from="BottomCollider" to="." method="_on_bottom_collider_body_entered"]
