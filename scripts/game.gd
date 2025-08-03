@@ -6,9 +6,13 @@ var player_score := 0;
 
 @onready var player = $Player;
 @onready var pipe_manager = $PipeManager;
+@onready var start_timer = $Timer;
+@onready var timer_label = $TimerLabel;
+@onready var score_label = $ScoreLabel;
 
 func _ready() -> void:
 	set_movements(false);
+	start_timer.start();
 
 func _on_top_collider_body_entered(_body: Node2D) -> void:
 	player_collided();
@@ -26,11 +30,10 @@ func player_collided() -> void:
 	game_over = true;
 	set_movements(false);
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (game_started == false):
-		if Input.is_action_just_pressed("jump"):
-			game_started = true;
-			set_movements(true);
+		var remaining_time = start_timer.time_left;
+		timer_label.text = str(int(remaining_time + 1));
 	if (game_over == true):
 		if Input.is_action_just_pressed("restart"):
 			call_deferred("restart_game");
@@ -50,4 +53,10 @@ func score_point() -> void:
 		pipe_manager.update_game_speed(11);
 	if (player_score == 60):
 		pipe_manager.update_game_speed(13);
-	$%ScoreLabel.text = "Score: " + str(player_score);
+	score_label.text = "Score: " + str(player_score);
+
+
+func _on_start_timer_timeout() -> void:
+	game_started = true;
+	timer_label.visible = false;
+	set_movements(true);
