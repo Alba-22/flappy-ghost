@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvrk86dq1fq1t"]
+[gd_scene load_steps=6 format=3 uid="uid://cvrk86dq1fq1t"]
 
 [ext_resource type="Script" uid="uid://btx41a5us57ba" path="res://scripts/initial_menu.gd" id="1_8ku6a"]
 [ext_resource type="StyleBox" uid="uid://cf8051cyot4up" path="res://styles/button_normal.tres" id="1_148c3"]
+[ext_resource type="FontFile" uid="uid://hf3g7orjoeca" path="res://fonts/pixel-font.otf" id="2_rek5e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_148c3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -46,9 +47,11 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("2_rek5e")
+theme_override_font_sizes/font_size = 140
 text = "Flappy
 Ghost"
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -63,7 +66,8 @@ layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.838897, 0.838897, 0.838897, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/align_to_largest_stylebox = 95
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("2_rek5e")
+theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxFlat_8ku6a")
 theme_override_styles/normal = ExtResource("1_148c3")
 text = "Play"
