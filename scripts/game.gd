@@ -9,10 +9,12 @@ var player_score := 0;
 @onready var start_timer = $Timer;
 @onready var timer_label = $TimerLabel;
 @onready var score_label = $ScoreLabel;
+@onready var gameover_overlay: Control = $GameOverOverlay
 
 func _ready() -> void:
 	set_movements(false);
 	start_timer.start();
+	gameover_overlay.hide();
 
 func _on_top_collider_body_entered(_body: Node2D) -> void:
 	player_collided();
@@ -29,6 +31,7 @@ func _on_pipe_manager_on_player_scored() -> void:
 func player_collided() -> void:
 	game_over = true;
 	set_movements(false);
+	gameover_overlay.show();
 	
 func _process(_delta: float) -> void:
 	if (game_started == false):
@@ -60,3 +63,7 @@ func _on_start_timer_timeout() -> void:
 	game_started = true;
 	timer_label.visible = false;
 	set_movements(true);
+
+func _on_restart_button_pressed() -> void:
+	call_deferred("restart_game");
+	gameover_overlay.hide();

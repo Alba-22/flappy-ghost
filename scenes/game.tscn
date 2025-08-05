@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cobdwyv0td2kl"]
+[gd_scene load_steps=11 format=3 uid="uid://cobdwyv0td2kl"]
 
 [ext_resource type="Texture2D" uid="uid://b3wsr4o732mql" path="res://sprites/background.png" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://dw4t7gml03pn2" path="res://scripts/game.gd" id="1_lrqlo"]
@@ -6,12 +6,25 @@
 [ext_resource type="Script" uid="uid://20uyo5uxcot4" path="res://scripts/pipe_manager.gd" id="3_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://fn0rqk317i26" path="res://scenes/pipe_set.tscn" id="4_sqa0i"]
 [ext_resource type="FontFile" uid="uid://hf3g7orjoeca" path="res://fonts/pixel-font.otf" id="6_p57ef"]
+[ext_resource type="StyleBox" uid="uid://cf8051cyot4up" path="res://styles/button_normal.tres" id="7_u5sy4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqlo"]
 size = Vector2(1152, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sqa0i"]
 size = Vector2(1153, 132)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
+bg_color = Color(0.228, 0.2793, 0.57, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_size = 2
+shadow_offset = Vector2(2, 4)
+anti_aliasing = false
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_lrqlo")
@@ -79,6 +92,44 @@ theme_override_font_sizes/font_size = 120
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameOverOverlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="GameOverOverlay"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.0392157, 0.0392157, 0.0392157, 0.392157)
+
+[node name="Label" type="Label" parent="GameOverOverlay"]
+offset_left = 142.0
+offset_top = 106.0
+offset_right = 1011.0
+offset_bottom = 339.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.739789, 2.00946e-06, 5.77569e-07, 1)
+theme_override_fonts/font = ExtResource("6_p57ef")
+theme_override_font_sizes/font_size = 230
+text = "game over"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="GameOverOverlay"]
+offset_left = 414.0
+offset_top = 435.0
+offset_right = 738.0
+offset_bottom = 509.0
+theme_override_colors/font_hover_pressed_color = Color(0.838897, 0.838897, 0.838897, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/align_to_largest_stylebox = 95
+theme_override_fonts/font = ExtResource("6_p57ef")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_gee14")
+theme_override_styles/normal = ExtResource("7_u5sy4")
+text = "Restart"
+
 [connection signal="timeout" from="Timer" to="." method="_on_start_timer_timeout"]
 [connection signal="on_player_collided" from="PipeManager" to="." method="_on_pipe_manager_on_player_collided"]
 [connection signal="on_player_scored" from="PipeManager" to="." method="_on_pipe_manager_on_player_scored"]
@@ -93,3 +144,4 @@ vertical_alignment = 1
 [connection signal="on_player_scored" from="PipeManager/PipeSet3" to="PipeManager" method="_on_pipe_set_3_on_player_scored"]
 [connection signal="body_entered" from="TopCollider" to="." method="_on_top_collider_body_entered"]
 [connection signal="body_entered" from="BottomCollider" to="." method="_on_bottom_collider_body_entered"]
+[connection signal="pressed" from="GameOverOverlay/Button" to="." method="_on_restart_button_pressed"]
